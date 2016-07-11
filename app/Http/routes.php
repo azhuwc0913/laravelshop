@@ -89,6 +89,9 @@
     Route::post('ajaxGetAttr', 'TypeController@ajaxGetAttr');
         ##############ajax删除删除图片####################
     Route::post('goods/ajaxDeleteImage', 'GoodsController@deleteImage');
+    Route::any('goods/', 'GoodsController@index');
+        ##############商品后台搜索#################
+    Route::post('goods/search', 'GoodsController@search');
     });
 
 

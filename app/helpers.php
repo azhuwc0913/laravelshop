@@ -107,10 +107,12 @@
 		foreach ($data as $v) {
 			if(!empty($selectedValue)){
 				if($v->$valueField == $selectedValue){
-					$selected = "selected='selected";
+					$selected = "selected='selected'";
 				}else{
 					$selected = '';
 				}
+			}else{
+				$selected = '';
 			}
 
 			$select .= "<option ".$selected." value='".$v->$valueField."'>".$v->$nameField."</option>";
@@ -133,7 +135,7 @@
 	if($height){
 		$height = "height='".$height."'";
 	}
-	echo '<img '.$width.$height.' src="http://www.php32.com/'.$url.'" />';
+	echo '<img '.$width.$height.' src="http://www.zsp.com/'.$url.'" />';
     }
 
 	function deleteImage($url){

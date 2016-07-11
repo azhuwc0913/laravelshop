@@ -3,6 +3,8 @@
 @section('content')
 
      @include('errors.errors')
+
+
     <table class="table table-hover">
         <tbody><tr>
             <th>
@@ -39,6 +41,9 @@
     <!-- end goods list -->
 
     <!-- 分页 -->
+
+
+
 
     <p>{!! $goods->links() !!}</p>
 

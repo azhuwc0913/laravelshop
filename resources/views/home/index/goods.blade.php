@@ -521,13 +521,13 @@
 				url:"{{ url('/ajaxGetComment/') }}/"+goods_id+"/"+page,
 				success:function(msg){
 					if(page==1) {
-						$('.best').html(msg.rate[0]);
-						$('.normal').html(msg.rate[1]);
-						$('.bad').html(msg.rate[2]);
+						$('.best').html(msg.best_rate);
+						$('.normal').html(msg.normal_rate);
+						$('.bad').html(msg.bad_rate);
 						var impression = '';
 						var checkImpHtml = '';
 
-						$(msg.rate[3]).each(function (k, v) {
+						$(msg.imp_data).each(function (k, v) {
 							impression += '<dd><span>' + v.imp_name + '</span><em>(' + v.imp_count + ')</em></dd>';
 							checkImpHtml += '<span style="margin: 20px;color: #00a65a;font-size: large "><input type="checkbox" name="imp_id[]" value="' + v.id + '">'+ v.imp_name+'</span>';
 						});

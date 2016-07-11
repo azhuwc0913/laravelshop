@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Home\HomeController;
 use App\Http\Model\Goods;
 use Illuminate\Http\Request;
 use App\Http\Model\Category;
@@ -42,7 +42,7 @@ class SearchController extends HomeController
 		if (!$ret){
 			dd($sph->getLastError());
 		}
-		//dd($ret);
+
 
 		// 提取出商品的id
 		if(null!==array_keys($ret['matches']))

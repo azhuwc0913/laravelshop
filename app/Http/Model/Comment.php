@@ -46,10 +46,8 @@ class Comment extends Model
 
 		$current_page = max(1, $page);
 
-		//取出好评率,并且将其存入缓存中
-		if(Cache::has('rate')){
-			$rate = Cache::get('rate');
-		}else{
+
+
 			$star_data = DB::table('comment')
 					->where('goods_id', '=', $goods_id)
 					->lists('star');
@@ -67,6 +65,9 @@ class Comment extends Model
 					$bad++;
 				}
 			}
+
+
+
 			$best_rate = round(($best/$level_count)*100, 2);
 
 			$normal_rate = round(($normal/$level_count)*100, 2);
@@ -79,8 +80,6 @@ class Comment extends Model
 					->select('id', 'imp_name', 'imp_count')
 					->get();
 
-            Cache::put('rate', [$best_rate, $normal_rate, $bad_rate, $imp_data], 3);
-		}
 
 		$offset = ($page-1)*$pageSize;
 
@@ -93,11 +92,13 @@ class Comment extends Model
 				->skip($offset)->take($pageSize)
 				->get();
 
-
 		return array(
-			'data'  =>  $data,
-	  'page_count'  =>  $page_count,
-	  'rate'        =>  $rate
+			'data'       =>  $data,
+	  'page_count'       =>  $page_count,
+	  'best_rate'        =>  $best_rate,
+	  'normal_rate'      =>  $normal_rate,
+	  'bad_rate'         =>  $bad_rate,
+	  'imp_data'         =>  $imp_data
 		);
 	}
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+
+use App\Models\Others\SortAndSearch\SortAndSearch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -14,22 +16,28 @@ use Illuminate\Support\Facades\DB;
 
 class GoodsController extends Controller
 {
+
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, SortAndSearch $sortAndSearch, Goods $goods)
     {
         //取出所有的商品数据
+
         $goods = DB::table('goods')->where('is_delete', '=', 0)->paginate(2);
         return view('admin/goods/lst')->with([
             'page_btn_link'  => "/admin/goods/create",
             'page_btn_name'  => '添加新商品',
             'page_btn_title' => '商品列表',
-            'goods'          => $goods
+            'goods'          => $goods,
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.

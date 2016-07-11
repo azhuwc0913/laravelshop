@@ -47,6 +47,7 @@ class Member extends Model
 	}
 
 	public function get_member_price($goods_id){
+
 		//取出商品是否促销
 		$today = mktime(23,59,59,date('m'),date('d'), date('Y'));
 
@@ -61,19 +62,23 @@ class Member extends Model
 				->where('promote_end_time', '>', $today)
 				->where('id', '=', $goods_id)
 				->lists('promote_price');
+
 		//会员id
 		$member_id = session('member_id');
 		//会员级别id
 		$member_level_id = session('member_level_id');
+
 		if($member_id){
 			//根据会员级别id取出对应的商品
 			$member_price = DB::table('member_price')
 					->where('level_id', '=', $member_level_id)
+					->where('goods_id', '=', $goods_id)
 					->lists('price');
 
-			if($member_price=='-1'){
+			if($member_price[0]=='-1'){
 				//根据对应的折扣率进行计算
-				$member_price[0] = (session('rate')/100)*$goods_info[0];
+				$member_price[0] = (session('member_level_rate')/100)*$goods_info[0];
+
 			}
 			if($promote_info){
 				return $data = min($promote_info[0], $member_price[0]);

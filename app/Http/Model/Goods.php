@@ -2,8 +2,10 @@
 
 namespace App\Http\Model;
 
+use App\Models\Others\SortAndSearch\SortAndSearch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+
 
 class Goods extends Model
 {
@@ -31,6 +33,17 @@ class Goods extends Model
 		'type_id'
 	];
 
+	//显示在列表页中的column
+	protected $showInfo = ['id', 'goods_name', 'shop_price', 'is_on_sale', 'is_best', 'is_new', 'is_new', 'sort_num'];
+
+	public function getAll(SortAndSearch $sortAndSearch)
+	{
+		$model = null === $sortAndSearch->builder
+				? self::orderBy('addtime', 'desc')
+				: $sortAndSearch->builder;
+
+		return $model->paginate(2, $this->showInfo);
+	}
 	/**
 	 * @param $goods_id
 	 * @param $member_price
@@ -443,4 +456,26 @@ class Goods extends Model
 
 		}
 	}
+
+
+	//后台商品搜索
+	/**
+	 * @param array $where
+	 *
+	 * @return mixed
+	 */
+//	public function search($where = array()){
+//
+//		$goods = new Goods();
+//		if(isset($where['gn'])){
+//		$goods = $goods->where('goods_name', 'like', $where['gn'].'%');
+//		}
+//
+//		if(isset($where['cate_id'])){
+//		$goods = $goods->where('cat_id', '=', $where['cate_id']);
+//		}
+//
+//		return $goods->paginate(2);
+//	}
+
 }
